@@ -37,6 +37,7 @@
     - git reset --hard [hash]
 
 ### rebaseをスムーズにできるようになる
+```
 base    ◯-◯-◯
             ＼
 topic         ◎-◎
@@ -44,6 +45,7 @@ topic         ◎-◎
 base    ◯-◯-◯
                ＼
 topic            ◎-◎
+```
 
 - 子枝の付け根から先をちょん切って、親幹の先頭に付け替えることが多い
 
@@ -54,15 +56,19 @@ topic            ◎-◎
 
 #### rebase実践（コンフリクトが発生しない場合）
 ##### gitの状態は以下として説明する
+```
 base  ◯-◯-◯
           ＼
 topic       ◎-◎
+```
 
 ##### rebaseする
 - baseのgit log 採取
   - git checkout base
   - git pull
   - git log
+
+```
 commit aaaaabbbbbcccc12 (HEAD -> base ・・・・)
 (略)
 commit xxxyyyyzzzz11233
@@ -80,6 +86,7 @@ commit cccccccccccccccc
 (略)
 commit xxxyyyyzzzz11233
 (略)
+```
 
 - 上記で一致している xxxyyyyzzzz11233 が切る場所
 
@@ -92,6 +99,8 @@ commit xxxyyyyzzzz11233
 - リポジトリにpush
   - git push --force-with-lease
 - gitgraph等で以下のようになっていることを確認
+
+```
 base  ◯-◯-◯
               ＼
 topic           ◎-◎-◎
@@ -101,6 +110,7 @@ topic           ◎-◎-◎
 base  ◯-◯-◯
           ＼
 topic       ◎-◎-◎
+```
 
 - git logを採取して切り取るhashを取得するまではコンフリクトが発生しないパターンと同じ
 - topic側にチェックアウト
@@ -130,14 +140,19 @@ topic       ◎-◎-◎
   - リポジトリにpush
     - git push --force-with-lease
   - gitgraph等で以下のようになっていることを確認
+ 
+```
 base  ◯-◯-◯
               ＼
 topic           ◎'
+```
 
 ### コミットを纏めれるようになる
 - コミットが増えすぎた場合に纏める
 - 複数人で作業している際はコミットを纏めて問題ないか確認すること
   - force pushする為。他のメンバはrebaseしないといけなくなる。（これは通常rebaseにも言える）
+
+```
 base  ◯
         ＼
 topic     ◎-◎-◎-◎-◎
@@ -150,11 +165,14 @@ topic     ◎'
 base  ◯
         ＼
 topic     ◎-◎-◎-◎-◎
+```
 
 - topicのgit log 採取
   - git checkout topic
   - git pull
   - git log
+
+```
 commit aaaaaaaaaaaaaaaa (HEAD -> topic ・・・・)
 (略)
 commit bbbbbbbbbbbbbbbb
@@ -167,10 +185,12 @@ commit eeeeeeeeeeeeeeee
 (略)
 commit xxxyyyyzzzz11233  <= こいつが切るとこ（自分のコミットの１個前）
 (略)
+```
 
 - git rebase -i xxxyyyyzzzz11233
 - 対話モードでvimになるので一番上以外, pick を s にする(終わったら:wq)
 
+```
 pick aaaaaaa コミットメッセージA
 pick bbbbbbb コミットメッセージB
 pick ccccccc コミットメッセージC
@@ -182,6 +202,8 @@ s bbbbbbb コミットメッセージB
 s ccccccc コミットメッセージC
 s ddddddd コミットメッセージD
 s eeeeeee コミットメッセージE
+```
+
 - コメントを編集できますが今回は割愛します
 
 - git status
@@ -190,6 +212,9 @@ s eeeeeee コミットメッセージE
   - 実施前に比べてコミットが少なくなっているはず
 
 - gitgraph等で以下のようになっていることを確認
+
+```
 base  ◯
         ＼
 topic     ◎'
+```
