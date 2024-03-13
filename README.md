@@ -73,11 +73,14 @@ commit aaaaabbbbbcccc12 (HEAD -> base ・・・・)
 (略)
 commit xxxyyyyzzzz11233
 (略)
+```
 
 - topicのgit log 採取
   - git checkout topic
   - git pull
   - git log
+
+```
 commit aaaaaaaaaaaaaaaa (HEAD -> topic ・・・・)
 (略)
 commit bbbbbbbbbbbbbbbb
@@ -104,9 +107,12 @@ commit xxxyyyyzzzz11233
 base  ◯-◯-◯
               ＼
 topic           ◎-◎-◎
+```
 
 #### rebase実践（コンフリクトが発生した場合）
 ##### gitの状態は以下として説明する
+
+```
 base  ◯-◯-◯
           ＼
 topic       ◎-◎-◎
@@ -160,8 +166,11 @@ topic     ◎-◎-◎-◎-◎
 base  ◯
         ＼
 topic     ◎'
+```
 
 ##### gitの状態は以下として説明する
+
+```
 base  ◯
         ＼
 topic     ◎-◎-◎-◎-◎
